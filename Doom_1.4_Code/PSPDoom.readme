@@ -1,0 +1,511 @@
+==========================================================================
+                         Doom v1.4 for the PSP
+==========================================================================
+
+Version 1.4 by Chilly Willy (ChillyWillyGuru@gmail.com) based on ADoomPPC
+version 1.7 by Jarmo Laakkonen (jami.laakkonen@kolumbus.fi) based on
+ADoomPPC version 1.3 by Joseph Fenton based on ADoom version 1.2 by
+Peter McGavin.
+
+Icon and EBOOT pics by Quare.
+
+Alternate MIDI Instruments by Zer0-X/o'Moses based on samples from
+Christian Buchner's GMPlay V1.3 and the original MIDI Instruments
+file by Joseph Fenton.
+
+==========================================================================
+
+This archive contains a PSP port of ADoomPPC, itself a port of ADoom.
+ADoom is a port of ID Software's Linux DOOM.  You can get the original
+ID Software Linux DOOM source from:
+
+    ftp://ftp.idsoftware.com/idstuff/source/doomsrc.zip
+
+Source code for this port of Doom is included.
+
+Doom for the PSP is aimed at the new Slim model, fully supporting TV out.
+However, it still runs on the older model PSP with 3.xx custom firmware.
+
+Features on all models of PSP include three different resolutions on the
+LCD, stereo sound and music, and control over most of the game options.
+TV-out is specific to the Slim model.
+
+Installation
+============
+
+Copy the DOOM folder to GAME on the Slim or a 3.xx custom firmware with
+the kernel mode set to 3.xx. You can also copy it to GAME371 on the Slim,
+or GAME3xx on 3.xx custom firmware.
+
+Copy a main WAD file to the same drawer; if you wish to use the WAD file in
+a different drawer, see the instructions concerning WAD files below.
+
+Requirements
+============
+
+Doom for the PSP requires a PSP with 3.xx custom firmware. For use with
+a TV, you need a PSP Slim with a composite or component AV cable.
+
+Doom for the PSP requires a WAD file compatible with DOOM for the PC or
+Macintosh; you can get a compilation of The Ultimate DOOM, DOOM II, and
+Final DOOM for around $20 (US); get it.  Only wimps use the shareware
+wad file. Despite the last sentence, the shareware WAD file is included
+so that you can play DOOM on your PSP right away.
+
+GUI
+===
+
+At the upper level, press CIRCLE to run DOOM. You change your selection
+in the menu using the directional pad. You can use Home to exit the
+program without running DOOM.
+
+Load Settings: Press CROSS to load a settings file. The file requester
+is used to select the file. Be sure to only select a file made by the
+program. Press CIRCLE to cancel the file request.
+
+Save Settings: Press CROSS to save the current settings. The PSP OSK
+is used to enter the save name. The default name is "doom.set", which
+is the name of the file loaded automatically when you start Doom for
+the PSP. You don't have to call your file this, but it won't be loaded
+automatically if you don't.
+
+CPU Settings: Press CROSS to enter the CPU sub-menu. There is currently
+only one entry in the sub-menu - CPU Clock Frequency. Hold the CROSS
+button and use the directional pad to change the setting. Default means
+that DOOM will run at whatever speed the CPU was set to when the program
+was run. Press CIRCLE to return to the previous menu.
+
+Video Settings: Press CROSS to enter the Video sub-menu. It has two
+sub-menus and a Display selector.
+
+LCD Settings: Press CROSS to enter the LCD Settings sub-menu.
+
+Resolution: Hold CROSS and use the d-pad to change the resolution. The
+selections are 480x272, 368x272, and 320x240.
+
+Sync to VBlank: Press CROSS to toggle on or off. When on, the video
+refresh waits for the vertical blank before flipping the screen.
+
+Detail: Hold CROSS and use the d-pad to select High or Low detail. This
+sets the starting detail mode of DOOM regardless of what you set it to
+the last time you played.
+
+Aspect Ratio: Hold CROSS and use the d-pad to select 4:3 or 16:9. This
+allows you to select a wider field of view (16:9), or the traditional
+field of view. This is selectable for LCD until I figure out how to
+keep the floors from "swimming" in the 16:9 FOV.
+
+TV Settings: Press CROSS to enter the TV Settings sub-menu.
+
+Cable: This just tells you what TV cable is detected.
+
+Resolution: Hold CROSS and use the d-pad to change the resolution. The
+selections are 720x480, 704x448, and 640x400. There are two reasons to
+having smaller screens for the TV. First, DOOM is an old-style 2.5D game,
+and every single pixel has to be rendered by the CPU. 720x480 is a LOT
+of pixels for a 200-300 MHz CPU to push around. 640x400 is noticably
+faster. Second, a smaller screen allows you to compensate for overscan
+on the TV, and adjust the positioning so that it looks good on YOUR TV.
+
+Sync to VBlank: Press CROSS to toggle on or off. When on, the video
+refresh waits for the vertical blank before flipping the screen.
+
+Detail: Hold CROSS and use the d-pad to select High or Low detail. This
+sets the starting detail mode of DOOM regardless of what you set it to
+the last time you played.
+
+Interlace: Press CROSS to toggle on or off. Only enabled if you have
+the component cable since the composite cable is interlaced only. Set
+this to on if your TV doesn't support progressive video.
+
+Aspect Ratio: Hold CROSS and use the d-pad to select 4:3 or 16:9. This
+is where YOU tell the program the aspect ratio of the TV hooked to the
+PSP since it can't tell. 16:9 gives you a wider field of view in the
+game (you can see more side to side). If you think it looks funny, just
+set this to 4:3 instead for the "normal" DOOM view.
+
+Center Screen: Press CROSS and the PSP should go black while the TV
+screen shows a calibration screen. Use the d-pad to center the screen
+(704x448 or 640x400 only!). press CROSS or CIRCLE to exit back to the
+PSP menu.
+
+Display: Hold CROSS and use the d-pad to select between showing DOOM on
+the LCD or the TV. This is disabled if there is no cable found, or an
+error occurs while trying to load and call the TV library.
+
+Sound Settings: Press CROSS to enter the Sound Settings sub-menu.
+
+Update Frequency: Hold CROSS and use the d-pad to select 140 Hz, 70 Hz,
+or 35 Hz. This is an artifact from when I wrote this code for AROS. You
+MIGHT save a little speed with 35 Hz, but it's possible the music may
+sound odd once in awhile.
+
+Sound Effects: Press CROSS to toggle on or off. Disables all sound when
+off.
+
+Music: Press CROSS to toggle on or off. Disables music when off, but
+not sound effects.
+
+Controller Settings: Press CROSS to enter the Controller Settings
+sub-menu.
+
+Disable Analog Stick: Press CROSS to toggle on or off. When on, the
+analog stick will not be used as a mouse inside the game.
+
+Calibrate Analog Stick: Press CROSS to enter the calibration
+routine. You need to try to make the minimum and maximum values
+as small and large, respectively, as possible, then allow the
+stick return to its natural center. Press CROSS or CIRCLE to
+return to the previous menu.
+
+TRIANGLE + CIRCLE Cheat: Hold CROSS and use the d-pad to select
+a cheat.
+
+TRIANGLE + CROSS Cheat: Hold CROSS and use the d-pad to select a
+cheat.
+
+TRIANGLE + SQUARE Cheat: Hold CROSS and use the d-pad to select
+a cheat.
+
+File Settings: Press CROSS to enter the File Settings sub-menu.
+
+Main WAD: Press CROSS to bring up the file requester.
+
+Patch WAD: Press CROSS to bring up the file requester. There are four
+patch WAD fields.
+
+DEH File : Press CROSS to bring up the file requester. There are four
+deh file fields.
+
+Game Settings: Press CROSS to enter the Game Settings sub-menu.
+
+No Monsters: Press CROSS to toggle on or off. When enabled, monsters
+will not appear in the game.
+
+Respawn: Press CROSS to toggle on or off. When enabled, monsters will
+respawn at random intervals after they are killed.
+
+Fast: Press CROSS to toggle on or off. When enabled, monsters will
+be faster.
+
+Turbo: Hold CROSS and use the d-pad to change. This sets how fast the
+player will be as a percent of the original value. 200 will make the
+player twice as fast.
+
+Map on HU: Press CROSS to toggle on or off. When enabled, the map
+will appear over the regular display instead of a black screen.
+
+Rotate Map: Press CROSS to toggle on or off. When enabled, the
+map will rotate as the player turns.
+
+Force Demo: Press CROSS to toggle on or off. When on, it forces DOOM
+to attempt to play demos from other versions.
+
+Record / Play Demo / Time Demo: Hold CROSS and use the d-pad to select
+the number of the demo file to Record/Play/Time. Zero means no demo. If
+you wish to time a demo, be sure to set Force Demo to on as well.
+
+Network Settings: Press CROSS to enter the Network Settings sub-menu.
+This will be disabled if the network failed to initialize during the
+startup.
+
+Play Network Game: Press CROSS to toggle on or off. Must be on to play
+against others via WIFI.
+
+Player Number: Hold CROSS and use the d-pad to set your player number.
+All players must have different numbers.
+
+Deathmatch: Press CROSS to toggle on or off. When on, the game runs
+in deathmatch mode, and players will start in different locations and
+you get frag stats at the end of the level. When off, the players all
+start in the same place.
+
+Alt Deathmatch: Press CROSS to toggle on or off. When on, the game
+runs in version 2 deathmatch mode where everything is doubled. This
+has priority over the Deathmatch settings.
+
+Starting Skill Level: Hold CROSS and use the d-pad to select the
+skill level you will start at.
+
+Starting Map Level: Hold CROSS and use the d-pad to select the map
+you will start on. Values are 1 to 32 for Doom 2, 1 to 27 for Doom 1,
+1 to 36 for the Ultimate Doom, and 1 to 9 for shareware Doom.
+
+Timed Game: Hold CROSS and use the d-pad to set the number of minutes
+the level will last.
+
+A.V.G.: Press CROSS to toggle on or off. When on, the level will last
+20 minutes.
+
+Copy Stats: Press CROSS to toggle on or off. When on, allows an
+external statistics program to capture the intermission screen statistics.
+
+Force Version: Hold CROSS and use the d-pad to set the version of DOOM.
+This can allow you to play against people with a different version of
+DOOM.
+
+Use PC Checksum: Press CROSS to toggle on or off. When on, uses the
+same method of computing the checksum for network packets as the PC
+version. This may allow you to play against PC versions of Doom rather
+than just other PSPs. This has been used to successfully play Doom for
+the PSP against SDL_Doom v1.10 in linux.
+
+Network Type: Hold CROSS and use the d-pad to select TCP/IP Infrastructure
+or TCP/IP Ad-Hoc. Note - Ad-Hoc is not available yet, so this item is
+disabled.
+
+Network Type Settings: Press CROSS to enter the Network Type Settings
+sub-menu.
+
+Network Access Point: Hold CROSS and use the d-pad to change which
+network access point will be used.
+
+Connect to Access Point: Press CROSS to connect to the currently
+selected access point.
+
+Disconnect from Access Point: Press CROSS to disconnect from the
+currently selected access point.
+
+Network Port: Hold CROSS and use the d-pad to change the port which
+will be used to network the players.
+
+Network Player #1: Press CROSS to enter a network address for the first
+network player via the OSK. This can be either an IP address, or a network
+address name. If you do use a name, it CANNOT start with '-' or '.', or a
+number.
+
+Network Player #2: Press CROSS to enter a network address for the second
+network player via the OSK.
+
+Network Player #3: Press CROSS to enter a network address for the third
+network player via the OSK.
+
+Local Network Address: This shows the network address for this PSP and
+cannot be changed. It will not show your IP address until you connect
+to an access point. Note that connecting to an access point in the
+GUI is not required. When you start a network game, the launcher will
+connect to the selected access point when you start DOOM.
+
+Net Access Points: This shows all the access points on your PSP. You
+cannot change this, except by creating or deleting access points in
+the XMB Network Settings.
+
+Network Extra Tic: Press CROSS to toggle on or off. Extra Tic tells DOOM
+to send the previous ticcmd along with the current one. This effectively
+handles single packet losses without a delay, but doubles the bandwidth
+of data transmitted.
+
+Network Tic Dup: Hold CROSS and use the d-pad to change. Valid range is
+one to nine. Tic Dup tells DOOM to send ticcmds at a lower rate to
+reduce network traffic. The normal rate is to send ticcmds 35 times per
+second. Setting Tic Dup to '2' tells DOOM to send ticcmds 17.5 times per
+second, and so forth. However, doing this reduces the accuracy of movement
+for network players.
+
+About: Press CROSS to see the About screen.
+
+Controls
+========
+
+TRIANGLE acts as an alternate function selector, as BACKSPACE when typing
+a savegame description, or as the 'y' key when you select QUIT.
+
+The following controls are when you are not pressing TRIANGLE:
+
+Analog stick - mouse
+D-Pad - forward/back/turn
+LTRIGGER - strafe left
+RTRIGGER - strafe right
+CIRCLE - action
+CROSS - fire
+SQUARE - run
+START - pause
+SELECT - map
+
+The following controls are when you are pressing TRIANGLE:
+
+D-Pad UP - change gamma setting
+D-Pad DOWN - toggle the detail setting
+D-Pad Left - previous cheat
+D-Pad Right - next cheat
+LTRIGGER - previous weapon
+RTRIGGER - next weapon
+CIRCLE - instant cheat 1
+CROSS - instant cheat 2
+SQUARE - instant cheat 3
+START - enter text via OSK
+SELECT - menu
+
+WAD Files
+=========
+
+Main WAD files should be in the in the iwad directory, or a subdirectory
+therein. While it is not a requirement, the requester starts in the
+iwad directory.
+
+Some older Registered WAD files may not work due to later changes made
+to the WAD file contents.
+
+It is possible to upgrade at least some old main WAD files using
+freely available patches from ftp://ftp.idsoftware.com/idstuff/doom/.
+You need a PC to apply the patches.
+
+Playstation WAD files do not work as they are split by level and
+compressed.
+
+WAD files from games derived from DOOM (such as Heretic or Hexen)
+do not work due to differences in WAD contents.
+
+WAD files are identified by their name. A misnamed WAD file will
+not work. Use the following to get the proper name:
+
+Shareware Doom WAD = doom1.wad
+Registered Doom WAD = doom.wad
+The Ultimate DOOM WAD = doomu.wad
+Doom 2 WAD = doom2.wad
+Final Doom Plutonia WAD = plutonia.wad
+Final Doom TNT WAD = tnt.wad
+
+The FreeDoom WAD does not work because it is designed for BOOM, not
+DOOM.
+
+Patch WAD Files
+===============
+
+Patch WAD files are used to change graphics, sounds, and level
+designs on DOOM; many are available on CDROM and the net.  You
+can choose up to four patch WAD files with DOOM for the PSP. It
+is recommended that you put patch WAD files into the appropriate
+subdirectory of the pwad directory. Patch WAD files are made for
+a specific version of the DOOM WAD, so keep them straight. Again,
+this is not a requirement. Doom for the PSP uses full path names
+for all files, so a file can be located anywhere on the memstick.
+It's just quicker and easier to use the recommended directories.
+
+DeHackEd
+========
+
+DeHackEd is a PC program that patches certain internal tables inside
+DOOM so that certain effects can be achieved; these include, a rapid
+fire shotgun, floating barrels, and many other things.
+
+Doom for the PSP supports the use of DeHackEd configuration files;
+they have a .DEH extension on them.  You may select up to four DEH
+files. It is recommended that you put them in the deh directory, but
+again, is not required.
+
+Networking
+==========
+
+TCP/IP:
+-------
+
+TCP/IP networking in Doom for the PSP is based on the Linux DOOM
+source code and the PSP networking example by powARman at ps2dev.
+
+To start a two player game of DOOM:
+
+  1:  Make certain both players are using identical WAD files and
+      game settings.
+
+  2:  Make certain you set up a Network Infrastructure entry on the
+      PSP.
+
+  3:  The first player should make sure Play Network Game is 'on',
+      the Player Number is set to '1', and that Network Player #1
+      is set to the network address of the second player.
+
+  4:  The second player should make sure Play Network Game is 'on',
+      the Player Number is set to '2', and that Network Player #1
+      is set to the network address of the first player.
+
+To start a three player game of DOOM:
+
+  1:  Make certain all players are using identical WAD files and
+      game settings.
+
+  2:  Make certain you set up a Network Infrastructure entry on the
+      PSP.
+
+  3:  The first player should make sure Play Network Game is 'on',
+      the Player Number is set to '1', that Network Player #1 is
+      set to the network address of the second player, and that
+      Network Player #2 is set to the network address of the third
+      player.
+
+  4:  The second player should make sure Play Network Game is 'on',
+      the Player Number is set to '2', that Network Player #1 is
+      set to the network address of the first player, and that
+      Network Player #2 is set to the network address of the third
+      player.
+
+  5:  The third player should make sure Play Network Game is 'on',
+      the Player Number is set to '3', that Network Player #1 is
+      set to the network address of the first player, and that
+      Network Player #2 is set to the network address of the second
+      player.
+
+A four player game would be set up in a similar manner. Note that
+network addresses may be either names or IP addresses. If you don't
+know how to find the network name of a PSP, consult someone else. I
+haven't the slightest idea. The program gives you the local IP
+address, so I'd suggest using that. Further note that although this
+is intended for PSP to PSP networking, nothing stops you from playing
+against someone running a compatible DOOM port on a computer hooked
+to the network. If you need to abort DOOM while it's arbitrating the
+network game (for example, if you entered an incorrect IP address),
+use Home to exit.
+
+For more info on setting up a wireless access point, consult the PSP
+Wireless FAQ's at the Playstation.com Forums:
+
+http://boardsus.playstation.com/playstation/board/message?board.id=pspnet&message.id=61134
+
+Cheats
+======
+
+There are two kinds of cheats: "instant" cheats and selected cheats.
+Instant cheats are set up in the GUI. You press TRIANGLE and one of
+the other three main buttons to activate an instant cheat. Selected
+cheats are always available. You hold TRIANGLE and press RIGHT or
+LEFT until you reach the cheat you wish, then release TRIANGLE.
+
+More...
+=======
+
+For more info on DOOM, check out the DOOM wiki.
+
+    http://doom.wikia.com/wiki/Entryway
+
+History
+=======
+
+v1.4 - 2007/11/14  : Automatically switches on LCD after using TV. No need
+to tap the display button anymore. Now uses intraFonts from Ben Hur as
+long as the ltn8.pgf font can be loaded. Looks a LOT better. If it fails
+to load the font for some reason (you deleted it to make room in the
+flash or something), it falls back to the debug printing. Altered next/
+previous weapon handling so that you can switch between the shotgun and
+the double-barrel shotgun in versions that allow it. The file requester
+now sorts the entries.
+
+v1.3 - 2007/11/05: Networking nows works. Completely changed GUI as
+relates to network gaming.
+
+v1.2 - 2007/11/02: Added ability to access the OSK during the game
+so that strings can be entered. Slowed the OSK by half to make inputting
+characters easier. TRIANGLE can now be used as BACKSPACE when entering
+the game save description. Added network support for Infrastructure
+TCP/IP (wireless access points). Also added a selector for 16:9 or 4:3
+rendering to the LCD menu; that way you can have "normal" graphics in
+480x272 mode. Optimized the rendering for almost twice the frame rate.
+
+v1.1 - 2007/10/29: Fixed problem with strafing and turning at the
+same time. Big cleanup of the controller handling code in general.
+Added ability to disable the analog stick and to calibrate it.
+Added two forms of cheats. If there is no default settings file,
+or if the default doesn't specify the main WAD file, it now tries
+to set the main WAD to the shareware WAD (idiot compensator).
+
+v1.0 - 2007/10/28: First version for the PSP. Need to add networking
+and cheats. The FOV in 16:9 mode is a bit iffy, but not too bad.

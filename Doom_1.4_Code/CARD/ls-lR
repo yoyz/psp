@@ -1,0 +1,34 @@
+/mnt/sdc1/PSP/GAME/DOOM/:
+total 9152
+-rwxr-xr-x 1 root root 1136150 Apr 18 13:42 EBOOT.PBP
+-rwxr-xr-x 1 root root 1079066 Apr 18 13:41 EBOOT.PBP.1.4
+-rwxr-xr-x 1 root root 4184738 Apr 18 01:21 MIDI_Instruments
+-rwxr-xr-x 1 root root 2520972 Apr 18 01:21 MIDI_Instruments.1
+-rwxr-xr-x 1 root root   20119 Apr 18 01:21 PSPDoom.readme
+-rwxr-xr-x 1 root root  127198 Apr 18 01:21 PSPDoom.readme.pdf
+drwxr-xr-x 2 root root   32768 Apr 18 01:21 deh
+-rwxr-xr-x 1 root root   72274 Jan  1  2008 doomsav0.dsg
+-rwxr-xr-x 1 root root   24278 Jan  1  2008 doomsav1.dsg
+-rwxr-xr-x 1 root root    2842 Apr 18 01:21 dvemgr.prx
+drwxr-xr-x 2 root root   32768 Apr 18 01:21 iwad
+drwxr-xr-x 4 root root   32768 Apr 18 01:21 pwad
+
+/mnt/sdc1/PSP/GAME/DOOM/deh:
+total 0
+
+/mnt/sdc1/PSP/GAME/DOOM/iwad:
+total 4128
+-rwxr-xr-x 1 root root 4196020 Apr 18 01:21 doom1.wad
+
+/mnt/sdc1/PSP/GAME/DOOM/pwad:
+total 64
+drwxr-xr-x 2 root root 32768 Apr 18 01:21 Doom1
+drwxr-xr-x 2 root root 32768 Apr 18 01:21 Doom2
+
+/mnt/sdc1/PSP/GAME/DOOM/pwad/Doom1:
+total 0
+
+/mnt/sdc1/PSP/GAME/DOOM/pwad/Doom2:
+total 0
+jobs:0 err:0 time:14:50:41
+r

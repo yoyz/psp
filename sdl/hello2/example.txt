@@ -1,0 +1,110 @@
+#include <pspkernel.h> 
+#include <pspdebug.h> 
+ 
+#include <SDL/SDL.h> 
+#include <SDL/SDL_image.h> 
+ 
+PSP_MODULE_INFO("SDL_event", 0, 1, 0); 
+PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER | THREAD_ATTR_VFPU); 
+ 
+int SetupCallbacks(void); 
+int exit_callback(int arg1, int arg2, void *common); 
+int CallbackThread(SceSize args, void *argp); 
+ 
+int main() 
+{ 
+   SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK); 
+ 
+   SDL_Joystick *joystick = NULL; 
+   SDL_Surface *screen = NULL; 
+   SDL_Surface *cursor = IMG_Load("image.png"); 
+   SDL_Event event; 
+       
+   int continuer = 1; 
+   int Rtrigger = 0; 
+       
+   SDL_JoystickEventState(SDL_ENABLE); 
+   joystick = SDL_JoystickOpen(0); 
+        
+   screen = SDL_SetVideoMode(480, 272, 32, SDL_HWSURFACE | SDL_DOUBLEBUF); 
+ 
+   SDL_Rect position; 
+   position.x = 25; 
+   position.y = 84; 
+       
+   int motion_x = 0; 
+   int motion_y = 0; 
+       
+   pspDebugScreenInit(); 
+   SetupCallbacks(); 
+        
+   SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0)); 
+   SDL_Flip(screen); 
+        
+   while(continuer) 
+   {               
+      char cursorSpeedDivider = 2; 
+      if (Rtrigger) cursorSpeedDivider = 6; 
+ 
+      while (SDL_PollEvent (&event)) { 
+         switch (event.type) { 
+            case SDL_JOYBUTTONDOWN:    
+               if (event.jbutton.button == 5) Rtrigger = 1; 
+               if (event.jbutton.button == 11) continuer = 0; 
+            break; 
+            case SDL_JOYBUTTONUP: 
+               if (event.jbutton.button == 5) Rtrigger = 0; 
+            break; 
+            case SDL_JOYAXISMOTION: 
+               switch (event.jaxis.axis) { 
+                  case 0: 
+                     motion_x = abs(event.jaxis.value) * event.jaxis.value / (100000000 * cursorSpeedDivider); 
+                  break; 
+                  case 1: 
+                     motion_y = abs(event.jaxis.value) * event.jaxis.value / (100000000 * cursorSpeedDivider); 
+                  break; 
+               } 
+            break; 
+         } 
+      } 
+          
+      position.x += motion_x; 
+      if (position.x < 1) position.x = 1; 
+      if (position.x > 470) position.x = 470; 
+      position.y += motion_y; 
+      if (position.y < 2) position.y = 2; 
+      if (position.y > 260) position.y = 260; 
+          
+      SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0)); 
+      SDL_BlitSurface(cursor, NULL, screen, &position); 
+      SDL_Flip(screen); 
+          
+      SDL_Delay(10); 
+   } 
+        
+   SDL_JoystickClose(joystick); 
+   SDL_Quit(); 
+   sceKernelExitGame(); 
+   return 0; 
+} 
+ 
+int exit_callback(int arg1, int arg2, void *common) 
+{ 
+   sceKernelExitGame(); 
+   return 0; 
+} 
+int CallbackThread(SceSize args, void *argp) 
+{ 
+   int cbid; 
+   cbid = sceKernelCreateCallback("Exit Callback", exit_callback, NULL); 
+   sceKernelRegisterExitCallback(cbid); 
+   sceKernelSleepThreadCB(); 
+   return 0; 
+} 
+int SetupCallbacks(void) 
+{ 
+   int thid = 0; 
+   thid = sceKernelCreateThread("update_thread", CallbackThread, 0x11, 0xFA0, 0, 0); 
+   if(thid >= 0)   sceKernelStartThread(thid, 0, 0); 
+   return thid; 
+}

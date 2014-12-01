@@ -10,6 +10,14 @@
 PSP_MODULE_INFO("Hello World2", PSP_MODULE_USER, VERS, REVS);
 PSP_MAIN_THREAD_ATTR(PSP_THREAD_ATTR_USER); 
 PSP_HEAP_SIZE_MAX();
+
+enum {
+  TRIANGLE, CIRCLE, CROSS, SQUARE, 
+  LTRIGGER, RTRIGGER, 
+  DOWN,     LEFT,   UP,    RIGHT, 
+  SELECT,   START
+};
+
  
 #define printf pspDebugScreenPrintf
 
@@ -24,9 +32,19 @@ int main()
   int running = isRunning();
 
   running=1;
-  int x=127;
+  int size_x=128;
+  int size_y=128;
+  int x=0;
   int y=0;
+
+  int vertical=0;
+  int horizontal=0;
+
   int col=0;
+
+  int up_x=0;
+  int up_y=0;
+  //int size=0;
   pspDebugScreenInit();
   setupExitCallback();
   //SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO|SDL_INIT_JOYSTICK);
@@ -48,37 +66,80 @@ int main()
 	  switch(event.type)
 	    {            
 	    case SDL_JOYBUTTONDOWN:
-	      if (event.jbutton.button == 1)
-		x=x++;
-	      break;
-	      if (event.jbutton.button == 5)
-		x=x++;
-	      break;
-	      if (event.jbutton.button == 9)
-		x=x++;
-	      break;
+	      {
+		if (event.jbutton.button == CIRCLE)
+		  x=1;
+		if (event.jbutton.button == TRIANGLE)
+		  x=-1;
+		if (event.jbutton.button == CROSS)
+		  y=1;
+		if (event.jbutton.button == SQUARE)
+		  y=-1;
 
-	    case SDL_KEYDOWN:
-	      x=x++;               
-	      break;
-	      /*
+		if (event.jbutton.button == UP)
+		  vertical=-1;
+		if (event.jbutton.button == DOWN)
+		  vertical=1;
+		if (event.jbutton.button == LEFT)
+		  horizontal=-1;
+		if (event.jbutton.button == RIGHT)
+		  horizontal=1;
+
+		if (event.jbutton.button == START)
+		  running=0;
+
+
+		break;
+	      }
+
+		 
 	    case SDL_JOYBUTTONUP:
-	      if (event.jbutton.button == 1)
-		0;
-	      if (event.jbutton.button == 5)
-		boutonCinq = 0;
+	      {
+		if (event.jbutton.button == CIRCLE)
+		  x=0;
+		if (event.jbutton.button == TRIANGLE)
+		  x=0;
+		if (event.jbutton.button == CROSS)
+		  y=0;
+		if (event.jbutton.button == SQUARE)
+		  y=0;
+
+		if (event.jbutton.button == UP)
+		  vertical=0;
+		if (event.jbutton.button == DOWN)
+		  vertical=0;
+		if (event.jbutton.button == LEFT)
+		  horizontal=0;
+		if (event.jbutton.button == RIGHT)
+		  horizontal=0;
+
+
+		break;
+	      }
+		/*
 	      if (event.jbutton.button == 9)
-		boutonNeuf = 0;
+		x = 0;
 	      break;
 	      */
+
+	      //*/
 	    }
-	  x=x++;               
+	  //x=x++;               
 	}
+
+      size_x=size_x+x;
+      if (size_x<1) size_x=1;
+
+      size_y=size_y+y;
+      if (size_y<1) size_y=1;
+
+      up_y=up_y+vertical;
+      up_x=up_x+horizontal;
       //x=x++;               
-      r.x = 0;
-      r.y = 0;
-      r.w = 128;
-      r.h = x;
+      r.x = up_x;
+      r.y = up_y;
+      r.w = size_y;
+      r.h = size_x;
       SDL_FillRect(screen, &r, 0xBBBBBB+col);
       SDL_Flip(screen);
       
@@ -87,7 +148,7 @@ int main()
 
 
       //running++;
-      SDL_Delay(50);
+      SDL_Delay(10);
       SDL_FillRect(screen,NULL, 0x000000);
 
     }

@@ -53,7 +53,7 @@ private:
 public:
   Beeper();
   ~Beeper();
-  void beep(double freq, int duration);
+  void beep(int freq);
   void generateSamples(Sint16 *stream, int length);
   void wait();
 };
@@ -97,60 +97,10 @@ void Beeper::generateSamples(Sint16 *stream, int length)
   }
 }
 
-/*
-void Beeper::generateSamples(Sint16 *stream, int length)
+
+void Beeper::beep(int freq)
 {
-
-  int i = 0;
-  while (i < length) {
-
-    if (beeps.empty()) {
-      while (i < length) {
-    	stream[i] = 0;
-    	i++;
-          }
-          return;//
-    }
-    BeepObject& bo = beeps.front();
-
-  int samplesToDo = std::min(i + bo.samplesLeft, length);
-  bo.samplesLeft -= samplesToDo - i;
-
-      while (i < samplesToDo) {
-      stream[i] = AMPLITUDE * std::sin(v * 2 * M_PI / FREQUENCY);
-      i++;
-      v += bo.freq;
-      v += 110;
-      }
-      
-      if (bo.samplesLeft == 0) {
-	beeps.pop();
-      }
-  }
-}
-*/
-void Beeper::beep(double freq, int duration)
-{
-  BeepObject bo;
-  bo.freq = freq;
   sawfreq=freq;
-  bo.samplesLeft = duration * FREQUENCY / 1000;
-
-  SDL_LockAudio();
-  beeps.push(bo);
-  SDL_UnlockAudio();
-}
-
-void Beeper::wait()
-{
-  int size;
-  do {
-    SDL_Delay(20);
-    SDL_LockAudio();
-    size = beeps.size();
-    SDL_UnlockAudio();
-  } while (size > 0);
-
 }
 
 void audio_callback(void *_beeper, Uint8 *_stream, int _length)
@@ -198,10 +148,6 @@ int main()
   //int size=0;
   pspDebugScreenInit();
   setupExitCallback();
-  //SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO|SDL_INIT_JOYSTICK);
-  //SDL_Init(SDL_INIT_VIDEO|SDL_INIT_JOYSTICK|SDL_INIT_TIMER);
-  //SDL_Init(SDL_INIT_JOYSTICK|SDL_INIT_TIMER);
-  //SDL_Init(SDL_INIT_EVERYTHING);
   SDL_Init(SDL_INIT_VIDEO|SDL_INIT_JOYSTICK|SDL_INIT_AUDIO);
   screen = SDL_SetVideoMode( 480, 272, 16, SDL_SWSURFACE );
   
@@ -294,11 +240,8 @@ int main()
       SDL_FillRect(screen, &r, 0xBBBBBB+col);
       SDL_Flip(screen);
       
-      //pspDebugScreenSetXY(0, 0);
-      //printf("Hello World:%d",x);
 
-      b.beep(size_x+size_y, 10);
-      //b.wait();
+      b.beep(size_x+size_y);
 
       //running++;
       SDL_Delay(10);

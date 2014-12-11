@@ -48,6 +48,8 @@ class Beeper
 private:
   double v;
   std::queue<BeepObject> beeps;
+  int step;
+  int sawfreq;
 public:
   Beeper();
   ~Beeper();
@@ -85,37 +87,53 @@ Beeper::~Beeper()
 
 void Beeper::generateSamples(Sint16 *stream, int length)
 {
+  int i=0;
+  while (i < length) {
+    //stream[i]=std::sin(step*2*M_PI/FREQUENCY);
+    stream[i]=step;
+    i++;
+    //step++;
+    step=step+sawfreq;
+  }
+}
+
+/*
+void Beeper::generateSamples(Sint16 *stream, int length)
+{
+
   int i = 0;
   while (i < length) {
 
     if (beeps.empty()) {
       while (i < length) {
-	stream[i] = 0;
-	i++;
-      }
-      return;
+    	stream[i] = 0;
+    	i++;
+          }
+          return;//
     }
     BeepObject& bo = beeps.front();
 
-    int samplesToDo = std::min(i + bo.samplesLeft, length);
-    bo.samplesLeft -= samplesToDo - i;
+  int samplesToDo = std::min(i + bo.samplesLeft, length);
+  bo.samplesLeft -= samplesToDo - i;
 
-    while (i < samplesToDo) {
+      while (i < samplesToDo) {
       stream[i] = AMPLITUDE * std::sin(v * 2 * M_PI / FREQUENCY);
       i++;
       v += bo.freq;
-    }
-
-    if (bo.samplesLeft == 0) {
-      beeps.pop();
-    }
+      v += 110;
+      }
+      
+      if (bo.samplesLeft == 0) {
+	beeps.pop();
+      }
   }
 }
-
+*/
 void Beeper::beep(double freq, int duration)
 {
   BeepObject bo;
   bo.freq = freq;
+  sawfreq=freq;
   bo.samplesLeft = duration * FREQUENCY / 1000;
 
   SDL_LockAudio();
